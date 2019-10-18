@@ -3,7 +3,7 @@ description: |
     The `tencentcloud-cvm` Packer builder plugin provide the capability to build
     customized images based on an existing base images.
 layout: docs
-page_title: 'Tencentcloud Image Builder'
+page_title: Tencentcloud Image Builder
 sidebar_current: 'docs-builders-tencentcloud-cvm'
 ---
 
@@ -31,15 +31,15 @@ builder.
 
 -   `region` (string) - The region where your cvm will be launch. You should
     reference [Region and Zone](https://intl.cloud.tencent.com/document/product/213/6091)
-     for parameter taking.
+    for parameter taking.
 
 -   `zone` (string) - The zone where your cvm will be launch. You should
     reference [Region and Zone](https://intl.cloud.tencent.com/document/product/213/6091)
-     for parameter taking.
+    for parameter taking.
 
 -   `instance_type` (string) - The instance type your cvm will be launched by.
     You should reference [Instace Type](https://intl.cloud.tencent.com/document/product/213/11518)
-     for parameter taking.
+    for parameter taking.
 
 -   `source_image_id` (string) - The base image id of Image you want to create
     your customized image from.
@@ -85,19 +85,17 @@ builder.
     for parameter taking.
 
 -   `disk_size` (number) - Root disk size your cvm will be launched by. values range(in GB):
-    -  LOCAL_BASIC: 50
-    -  Other: 50 ~ 1000 (need whitelist if > 50)
-
+    -   LOCAL\_BASIC: 50
+    -   Other: 50 ~ 1000 (need whitelist if &gt; 50)
 -   `data_disks` (array of data disks) - Add one or more data disks to the instance before creating the
     image. Note that if the source image has data disk snapshots, this argument will be ignored, and
     the running instance will use source image data disk settings, in such case, `disk_type`
     argument will be used as disk type for all data disks, and each data disk size will use the
     origin value in source image.
     The data disks allow for the following argument:
-    -  `disk_type` - Type of the data disk. Valid choices: `CLOUD_BASIC`, `CLOUD_PREMIUM` and `CLOUD_SSD`.
-    -  `disk_size` - Size of the data disk.
-    -  `disk_snapshot_id` - Id of the snapshot for a data disk.
-
+    -   `disk_type` - Type of the data disk. Valid choices: `CLOUD_BASIC`, `CLOUD_PREMIUM` and `CLOUD_SSD`.
+    -   `disk_size` - Size of the data disk.
+    -   `disk_snapshot_id` - Id of the snapshot for a data disk.
 -   `vpc_id` (string) - Specify vpc your cvm will be launched by.
 
 -   `vpc_name` (string) - Specify vpc name you will create. if `vpc_id` is not set, packer will

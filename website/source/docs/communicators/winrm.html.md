@@ -86,6 +86,7 @@ The WinRM communicator has the following options.
 -   `winrm_username` (string) - The username to use to connect to WinRM.
 
 ## Pausing Before Connecting
+
 We recommend that you enable SSH or WinRM as the very last step in your
 guest's bootstrap script, but sometimes you may have a race condition where
 you need Packer to wait before attempting to connect to your guest.
@@ -93,18 +94,15 @@ you need Packer to wait before attempting to connect to your guest.
 If you end up in this situation, you can use the template option
 `pause_before_connecting`. By default, there is no pause. For example:
 
-```
-{
-  "communicator": "ssh",
-  "ssh_username": "myuser",
-  "pause_before_connecting": "10m"
-}
-```
+    {
+      "communicator": "ssh",
+      "ssh_username": "myuser",
+      "pause_before_connecting": "10m"
+    }
 
 In this example, Packer will check whether it can connect, as normal. But once
 a connection attempt is successful, it will disconnect and then wait 10 minutes
 before connecting to the guest and beginning provisioning.
-
 
 ## Configuring WinRM as part of an Autounattend File
 
@@ -127,28 +125,26 @@ file, or a very simple one.
 
 The winrmConfig.bat referenced above can be as simple as
 
-```
-rem basic config for winrm
-cmd.exe /c winrm quickconfig -q
+    rem basic config for winrm
+    cmd.exe /c winrm quickconfig -q
 
-rem allow unencrypted traffic, and configure auth to use basic username/password auth
-cmd.exe /c winrm set winrm/config/service @{AllowUnencrypted="true"}
-cmd.exe /c winrm set winrm/config/service/auth @{Basic="true"}
+    rem allow unencrypted traffic, and configure auth to use basic username/password auth
+    cmd.exe /c winrm set winrm/config/service @{AllowUnencrypted="true"}
+    cmd.exe /c winrm set winrm/config/service/auth @{Basic="true"}
 
-rem update firewall rules to open the right port and to allow remote administration
-cmd.exe /c netsh advfirewall firewall set rule group="remote administration" new enable=yes
+    rem update firewall rules to open the right port and to allow remote administration
+    cmd.exe /c netsh advfirewall firewall set rule group="remote administration" new enable=yes
 
-rem restart winrm
-cmd.exe /c net stop winrm
-cmd.exe /c net start winrm
-```
+    rem restart winrm
+    cmd.exe /c net stop winrm
+    cmd.exe /c net start winrm
 
 This batch file will only work for http connections, not https, but will enable
 you to connect using only the username and password created earlier in the
 Autounattend file. The above batchfile will allow you to connect using a very
 simple Packer config:
 
-```json
+``` json
         ...
         "communicator": "winrm",
         "winrm_username": "packeruser",

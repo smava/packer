@@ -180,24 +180,26 @@ func (b *Builder) Run(ctx context.Context, ui packer.Ui, hook packer.Hook) (pack
 		})
 	}
 
-	steps = append(steps,
-		&stepCreateAlicloudImage{
-			AlicloudImageIgnoreDataDisks: b.config.AlicloudImageIgnoreDataDisks,
-			WaitSnapshotReadyTimeout:     b.getSnapshotReadyTimeout(),
-		},
-		&stepCreateTags{
-			Tags: b.config.AlicloudImageTags,
-		},
-		&stepRegionCopyAlicloudImage{
-			AlicloudImageDestinationRegions: b.config.AlicloudImageDestinationRegions,
-			AlicloudImageDestinationNames:   b.config.AlicloudImageDestinationNames,
-			RegionId:                        b.config.AlicloudRegion,
-		},
-		&stepShareAlicloudImage{
-			AlicloudImageShareAccounts:   b.config.AlicloudImageShareAccounts,
-			AlicloudImageUNShareAccounts: b.config.AlicloudImageUNShareAccounts,
-			RegionId:                     b.config.AlicloudRegion,
-		})
+	if !b.config.PackerDryRun {
+		steps = append(steps,
+			&stepCreateAlicloudImage{
+				AlicloudImageIgnoreDataDisks: b.config.AlicloudImageIgnoreDataDisks,
+				WaitSnapshotReadyTimeout:     b.getSnapshotReadyTimeout(),
+			},
+			&stepCreateTags{
+				Tags: b.config.AlicloudImageTags,
+			},
+			&stepRegionCopyAlicloudImage{
+				AlicloudImageDestinationRegions: b.config.AlicloudImageDestinationRegions,
+				AlicloudImageDestinationNames:   b.config.AlicloudImageDestinationNames,
+				RegionId:                        b.config.AlicloudRegion,
+			},
+			&stepShareAlicloudImage{
+				AlicloudImageShareAccounts:   b.config.AlicloudImageShareAccounts,
+				AlicloudImageUNShareAccounts: b.config.AlicloudImageUNShareAccounts,
+				RegionId:                     b.config.AlicloudRegion,
+			})
+	}
 
 	// Run!
 	b.runner = common.NewRunner(steps, b.config.PackerConfig, ui)

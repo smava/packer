@@ -79,7 +79,12 @@ func (b *Builder) Run(ctx context.Context, ui packer.Ui, hook packer.Hook) (pack
 	if _, exists := b.config.Metadata[StartupScriptKey]; exists || b.config.StartupScriptFile != "" {
 		steps = append(steps, new(StepWaitStartupScript))
 	}
-	steps = append(steps, new(StepTeardownInstance), new(StepCreateImage))
+
+	steps = append(steps, new(StepTeardownInstance))
+
+	if !b.config.PackerDryRun {
+		steps = append(steps, new(StepCreateImage))
+	}
 
 	// Run the steps.
 	b.runner = common.NewRunner(steps, b.config.PackerConfig, ui)

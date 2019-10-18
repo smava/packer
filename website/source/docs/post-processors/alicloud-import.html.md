@@ -82,9 +82,9 @@ are two categories: required and optional parameters.
 
 -   `image_system_size` (number) - Size of the system disk, in GB, values
     range:
-    -   cloud - 5 \~ 2000
-    -   cloud\_efficiency - 20 \~ 2048
-    -   cloud\_ssd - 20 \~ 2048
+    -   cloud - 5 ~ 2000
+    -   cloud\_efficiency - 20 ~ 2048
+    -   cloud\_ssd - 20 ~ 2048
 
 ## Basic Example
 

@@ -19,7 +19,7 @@ plugin interface, and this page documents how to do that.
 Prior to reading this page, it is assumed you have read the page on [plugin
 development basics](/docs/extending/plugins.html).
 
-\~&gt; **Warning!** This is an advanced topic. If you're new to Packer, we
+~&gt; **Warning!** This is an advanced topic. If you're new to Packer, we
 recommend getting a bit more comfortable before you dive into writing plugins.
 
 ## The Interface
@@ -94,9 +94,10 @@ be returned, as well. Note that it is perfectly fine to produce no artifact and
 no error, although this is rare.
 
 ### Cancellation
+
 The `Run` method is often run in parallel.
 
-#### With the "Cancel" Method	( up until packer 1.3 )
+#### With the "Cancel" Method ( up until packer 1.3 )
 
 The `Cancel` method can be called at any time and requests cancellation of any
 builder run in progress. This method should block until the run actually stops.
@@ -151,4 +152,3 @@ necessary.
 -&gt; **Note:** Hooks are still undergoing thought around their general design
 and will likely change in a future version. They aren't fully "baked" yet, so
 they aren't documented here other than to tell you how to hook in provisioners.
-

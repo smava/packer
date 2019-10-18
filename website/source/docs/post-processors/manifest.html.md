@@ -41,7 +41,7 @@ post-processors such as Docker and Artifice.
 -   `custom_data` (map of strings) Arbitrary data to add to the manifest.
 
 -   `keep_input_artifact` (boolean) - Unlike most other post-processors, the
-    keep_input_artifact option will have no effect for the manifest
+    keep\_input\_artifact option will have no effect for the manifest
     post-processor. We will always retain the input artifact for manifest,
     since deleting the files we just recorded is not a behavior anyone should
     ever expect. `keep_input_artifact will` therefore always be evaluated as

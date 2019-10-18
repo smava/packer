@@ -148,13 +148,18 @@ func (b *Builder) Run(ctx context.Context, ui packer.Ui, hook packer.Hook) (pack
 		&StepDetachVolume{
 			UseBlockStorageVolume: b.config.UseBlockStorageVolume,
 		},
-		&stepCreateImage{
-			UseBlockStorageVolume: b.config.UseBlockStorageVolume,
-		},
-		&stepUpdateImageTags{},
-		&stepUpdateImageVisibility{},
-		&stepAddImageMembers{},
-		&stepUpdateImageMinDisk{},
+	}
+
+	if !b.config.PackerDryRun {
+		steps = append(steps,
+			&stepCreateImage{
+				UseBlockStorageVolume: b.config.UseBlockStorageVolume,
+			},
+			&stepUpdateImageTags{},
+			&stepUpdateImageVisibility{},
+			&stepAddImageMembers{},
+			&stepUpdateImageMinDisk{},
+		)
 	}
 
 	// Run!

@@ -14,11 +14,11 @@ interpolations. You may access variables in the Packer config you called the
 console with, or provide variables when you call console using the -var or
 -var-file command line options.
 
-~> **Note:** `console` is available from version 1.4.2 and above.
+~&gt; **Note:** `console` is available from version 1.4.2 and above.
 
-Type in the interpolation to test and hit \<enter\> to see the result.
+Type in the interpolation to test and hit &lt;enter&gt; to see the result.
 
-To exit the console, type "exit" and hit \<enter\>, or use Control-C.
+To exit the console, type "exit" and hit &lt;enter&gt;, or use Control-C.
 
 ``` shell
 $ packer console my_template.json
@@ -34,9 +34,10 @@ help output, which can be seen via `packer console -h`.
     example: `-var "myvar=asdf"`
 
 -   `-var-file` - Set template variables from a file.
-	example: `-var-file myvars.json`
+    example: `-var-file myvars.json`
 
 ## REPL commands
+
 -   `help` - displays help text for Packer console.
 
 -   `exit` - exits the console
@@ -48,47 +49,36 @@ help output, which can be seen via `packer console -h`.
 
 Let's say you launch a console using a Packer template `example_template.json`:
 
-```
-$ packer console example_template.json
-```
+    $ packer console example_template.json
 
 You'll be dropped into a prompt that allows you to enter template functions and
 see how they're evaluated; for example, if the variable `myvar` is defined in
-your example_template's variable section:
+your example\_template's variable section:
 
-```
-"variables":{
-	"myvar": "asdfasdf"
-},
-...
-```
-and you enter `{{user `myvar`}}` in the Packer console, you'll see the value of
+    "variables":{
+        "myvar": "asdfasdf"
+    },
+    ...
+
+and you enter `{{user`myvar`}}` in the Packer console, you'll see the value of
 myvar:
 
-```
-> {{user `myvar`}}
-> asdfasdf
-```
+    > {{user `myvar`}}
+    > asdfasdf
 
 From there you can test more complicated interpolations:
 
-```
-> {{user `myvar`}}-{{timestamp}}
-> asdfasdf-1559854396
-```
+    > {{user `myvar`}}-{{timestamp}}
+    > asdfasdf-1559854396
 
 And when you're done using the console, just type "exit" or CTRL-C
 
-```
-> exit
-$
-```
+    > exit
+    $
 
 If you'd like to provide a variable or variable files, you'd do this:
 
-```
-packer console -var "myvar=fdsafdsa" -var-file myvars.json example_template.json
-```
+    packer console -var "myvar=fdsafdsa" -var-file myvars.json example_template.json
 
 If you don't have specific variables or var files you want to test, and just
 want to experiment with a particular template engine, you can do so by simply
@@ -98,7 +88,5 @@ If you'd like to just see a specific single interpolation without launching
 the REPL, you can do so by echoing and piping the string into the console
 command:
 
-```
-$ echo {{timestamp}} | packer console
-1559855090
-```
+    $ echo {{timestamp}} | packer console
+    1559855090

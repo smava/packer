@@ -24,7 +24,7 @@ development basics](/docs/extending/plugins.html).
 Post-processor plugins implement the `packer.PostProcessor` interface and are
 served using the `plugin.ServePostProcessor` function.
 
-\~&gt; **Warning!** This is an advanced topic. If you're new to Packer, we
+~&gt; **Warning!** This is an advanced topic. If you're new to Packer, we
 recommend getting a bit more comfortable before you dive into writing plugins.
 
 ## The Interface
@@ -90,7 +90,7 @@ return value is explained below:
     on the previous artifact existing. If this is `true`, it forces packer to
     keep the artifact around.
 -   `bool` - If forceOverride is true, then any user input for
-    keep_input_artifact is ignored and the artifact is either kept or discarded
-    according to the value set in `keep`. 
+    keep\_input\_artifact is ignored and the artifact is either kept or discarded
+    according to the value set in `keep`.
 -   `error` - Non-nil if there was an error in any way. If this is the case,
     the other two return values are ignored.

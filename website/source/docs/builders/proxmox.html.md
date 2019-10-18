@@ -53,6 +53,7 @@ builder.
     `local:iso/Fedora-Server-dvd-x86_64-29-1.2.iso`
 
 ### Optional:
+
 -   `insecure_skip_tls_verify` (bool) - Skip validating the certificate.
 
 -   `pool` (string) - Name of resource pool to create virtual machine in.
@@ -84,7 +85,7 @@ builder.
 -   `network_adapters` (array of objects) - Network adapters attached to the
     virtual machine. Example:
 
-    ```json
+    ``` json
     [
       {
         "model": "virtio",
@@ -111,7 +112,7 @@ builder.
 -   `disks` (array of objects) - Disks attached to the virtual machine.
     Example:
 
-    ```json
+    ``` json
     [
       {
         "type": "scsi",
@@ -153,7 +154,7 @@ builder.
     after finishing. Defaults to `false`.
 
 -   `qemu_agent` (boolean) - Disables QEMU Agent option for this VM. When enabled,
-    then `qemu-guest-agent` must be installed on the guest. When disabled, then 
+    then `qemu-guest-agent` must be installed on the guest. When disabled, then
     `ssh_host` should be used. Defaults to `true`.
 
 -   `scsi_controller` (string) - The SCSI controller model to emulate. Can be `lsi`,

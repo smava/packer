@@ -20,7 +20,7 @@ builder that you have already installed what you need.
 By default, this builder will initialize a new Vagrant workspace, launch your
 box from that workspace, provision it, call `vagrant package` to package it
 into a new box, and then destroy the original box. Please note that vagrant
-will _not_ remove the box file from your system (we don't call
+will *not* remove the box file from your system (we don't call
 `vagrant box remove`).
 
 You can change the behavior so that the builder doesn't destroy the box by
@@ -31,6 +31,7 @@ rather than initializing a new Vagrant workspace, you use an already defined
 one, by using `global_id` instead of `source_box`.
 
 ## Configuration Reference
+
 ### Required:
 
 -   `source_path` (string) - URL of the vagrant box to use, or the name of the
@@ -42,13 +43,13 @@ one, by using `global_id` instead of `source_box`.
 
     or
 
--  `global_id` (string) - the global id of a Vagrant box already added to Vagrant
-   on your system. You can find the global id of your Vagrant boxes using the
-   command `vagrant global-status`; your global_id will be a 7-digit number and
-   letter combination that you'll find in the leftmost column of the
-   global-status output.  If you choose to use `global_id` instead of
-   `source_box`, Packer will skip the Vagrant initialize and add steps, and
-   simply launch the box directly using the global id.
+-   `global_id` (string) - the global id of a Vagrant box already added to Vagrant
+    on your system. You can find the global id of your Vagrant boxes using the
+    command `vagrant global-status`; your global\_id will be a 7-digit number and
+    letter combination that you'll find in the leftmost column of the
+    global-status output. If you choose to use `global_id` instead of
+    `source_box`, Packer will skip the Vagrant initialize and add steps, and
+    simply launch the box directly using the global id.
 
 ### Optional:
 
@@ -59,7 +60,7 @@ one, by using `global_id` instead of `source_box`.
 
 -   `box_name` (string) - if your source\_box is a boxfile that we need to add
     to Vagrant, this is the name to give it. If left blank, will default to
-    "packer_" plus your buildname.
+    "packer\_" plus your buildname.
 
 -   `provider` (string) - The vagrant [provider](docs/post-processors/vagrant.html).
     This parameter is required when `source_path` have more than one provider,
@@ -83,7 +84,7 @@ one, by using `global_id` instead of `source_box`.
     You must provide a template if your default vagrant provider is Hyper-V.
     Below is a Hyper-V compatible template.
 
-    ```ruby
+    ``` ruby
     Vagrant.configure("2") do |config|
         config.vm.box = "{{ .BoxName }}"
         config.vm.network 'public_network', bridge: 'Default Switch'
@@ -138,20 +139,17 @@ one, by using `global_id` instead of `source_box`.
 
 Sample for `hashicorp/precise64` with virtualbox provider.
 
-```
-{
-  "builders": [
     {
-      "communicator": "ssh",
-      "source_path": "hashicorp/precise64",
-      "provider": "virtualbox",
-      "add_force": true,
-      "type": "vagrant"
+      "builders": [
+        {
+          "communicator": "ssh",
+          "source_path": "hashicorp/precise64",
+          "provider": "virtualbox",
+          "add_force": true,
+          "type": "vagrant"
+        }
+      ]
     }
-  ]
-}
-```
-
 
 ## A note on SSH connections
 

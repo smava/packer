@@ -357,14 +357,18 @@ func (b *Builder) Run(ctx context.Context, ui packer.Ui, hook packer.Hook) (pack
 			Commands: b.config.VBoxManagePost,
 			Ctx:      b.config.ctx,
 		},
-		&vboxcommon.StepExport{
-			Format:         b.config.Format,
-			OutputDir:      b.config.OutputDir,
-			ExportOpts:     b.config.ExportConfig.ExportOpts,
-			Bundling:       b.config.VBoxBundleConfig,
-			SkipNatMapping: b.config.SSHSkipNatMapping,
-			SkipExport:     b.config.SkipExport,
-		},
+	}
+
+	if !b.config.PackerDryRun {
+		steps = append(steps,
+			&vboxcommon.StepExport{
+				Format:         b.config.Format,
+				OutputDir:      b.config.OutputDir,
+				ExportOpts:     b.config.ExportConfig.ExportOpts,
+				SkipNatMapping: b.config.SSHSkipNatMapping,
+				SkipExport:     b.config.SkipExport,
+			},
+		)
 	}
 
 	// Setup the state bag

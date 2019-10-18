@@ -88,7 +88,12 @@ func (b *Builder) Run(ctx context.Context, ui packer.Ui, hook packer.Hook) (pack
 			Comm: &b.config.Comm,
 		},
 		&stepShutdownInstance{},
-		&stepCreateTemplate{},
+	}
+
+	if !b.config.PackerDryRun {
+		steps = append(steps,
+			&stepCreateTemplate{},
+		)
 	}
 
 	// Configure the runner and run the steps.

@@ -22,6 +22,10 @@ const (
 	DebugConfigKey = "packer_debug"
 
 	// This is the key in configurations that is set to "true" when Packer
+	// dry-run is enabled.
+	DryRunConfigKey = "packer_dry_run"
+
+	// This is the key in configurations that is set to "true" when Packer
 	// force build is enabled.
 	ForceConfigKey = "packer_force"
 
@@ -66,6 +70,14 @@ type Build interface {
 	// strictly prohibited.
 	SetDebug(bool)
 
+	// SetDryRun will enable/disable dry-run. DryRun mode
+	// is always enabled by adding the additional key "packer_dry_run"
+	// to boolean true in the configuration of the various components.
+	//
+	// When SetDryRun is set to true, parallelism between builds is
+	// strictly prohibited.
+	SetDryRun(bool)
+
 	// SetForce will enable/disable forcing a build when artifacts exist.
 	//
 	// When SetForce is set to true, existing artifacts from the build are
@@ -96,6 +108,7 @@ type coreBuild struct {
 	variables          map[string]string
 
 	debug         bool
+	dryRun        bool
 	force         bool
 	onError       string
 	l             sync.Mutex
@@ -141,6 +154,7 @@ func (b *coreBuild) Prepare() (warn []string, err error) {
 		BuildNameConfigKey:     b.name,
 		BuilderTypeConfigKey:   b.builderType,
 		DebugConfigKey:         b.debug,
+		DryRunConfigKey:        b.dryRun,
 		ForceConfigKey:         b.force,
 		OnErrorConfigKey:       b.onError,
 		TemplatePathKey:        b.templatePath,
@@ -371,6 +385,14 @@ func (b *coreBuild) SetDebug(val bool) {
 	}
 
 	b.debug = val
+}
+
+func (b *coreBuild) SetDryRun(val bool) {
+	if b.prepareCalled {
+		panic("prepare has already been called")
+	}
+
+	b.dryRun = val
 }
 
 func (b *coreBuild) SetForce(val bool) {

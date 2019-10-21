@@ -30,7 +30,7 @@ this builder.
 If using user session, set the `token` field to your authentication token.
 The `project` field is required when using this method.
 
-```json
+``` json
 {
     "token": "YOUR TOKEN",
     "project": "YOUR_PROJECT"
@@ -43,7 +43,7 @@ If you've added an SSH key as a credential to your user account and the
 private key is added to the ssh-agent on your local machine, you can
 authenticate by setting just the platform login (your e-mail address):
 
-```json
+``` json
 {
     "token_login": "your.user@example.com"
 }
@@ -56,7 +56,7 @@ machine, HyperOne builder can use your credentials saved in a config file.
 
 All you have to do is login within the tool:
 
-```bash
+``` bash
 h1 login --username your.user@example.com 
 ```
 
@@ -66,7 +66,7 @@ You don't have to set `token` or `project` fields at all using this method.
 
 Using `h1`, you can create a new token associated with chosen project.
 
-```bash
+``` bash
 h1 project token add --name packer-builder --project PROJECT_ID
 ```
 
@@ -74,7 +74,7 @@ Set the `token` field to the generated token or save it in the `HYPERONE_TOKEN`
 environment variable. You don't have to set the `project` option using this
 method.
 
-```json
+``` json
 {
     "token": "YOUR TOKEN"
 }
@@ -104,9 +104,9 @@ builder.
     This can be either a session token or a service account token.
     If not defined, the builder will attempt to find it in the following order:
 
-    - In `HYPERONE_TOKEN` environment variable.
-    - In `~/.h1-cli/conf.json` config file used by [h1-cli](https://github.com/hyperonecom/h1-cli).
-    - By using SSH authentication if `token_login` variable has been set.
+    -   In `HYPERONE_TOKEN` environment variable.
+    -   In `~/.h1-cli/conf.json` config file used by [h1-cli](https://github.com/hyperonecom/h1-cli).
+    -   By using SSH authentication if `token_login` variable has been set.
 
 -   `vm_type` (string) - ID or name of the type this server should be created with.
 
@@ -167,7 +167,7 @@ builder.
 -   `chroot_disk` (bool) - Set to `true` to enable chroot disk build.
 
 -   `pre_mount_commands` (array of strings) - A series of commands to execute
-    before mounting the chroot. This should include any partitioning and 
+    before mounting the chroot. This should include any partitioning and
     filesystem creation commands. The path to the device is provided by
     `{{.Device}}`.
 
@@ -227,7 +227,6 @@ token.
 ```
 
 ## Chroot Example
-
 
 ``` json
 {

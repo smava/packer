@@ -47,7 +47,7 @@ Below is a fully functioning example.
     container. This can be a (local or remote) image (name or fingerprint).
     E.G. `my-base-image`, `ubuntu-daily:x`, `08fababf6f27`, ...
 
-    \~&gt; Note: The builder may appear to pause if required to download a
+    ~&gt; Note: The builder may appear to pause if required to download a
     remote image, as they are usually 100-200MB. `/var/log/lxd/lxd.log` will
     mention starting such downloads.
 

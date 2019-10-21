@@ -1,6 +1,5 @@
 ---
-description: |
-    The Packer vSphere post-processor takes an artifact and uploads it to a vSphere endpoint.
+description: 'The Packer vSphere post-processor takes an artifact and uploads it to a vSphere endpoint.'
 layout: docs
 page_title: 'vSphere - Post-Processors'
 sidebar_current: 'docs-post-processors-vsphere'

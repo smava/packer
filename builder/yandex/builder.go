@@ -72,7 +72,12 @@ func (b *Builder) Run(ctx context.Context, ui packer.Ui, hook packer.Hook) (pack
 			Comm: &b.config.Communicator,
 		},
 		&stepTeardownInstance{},
-		&stepCreateImage{},
+	}
+
+	if !b.config.PackerDryRun {
+		steps = append(steps,
+			&stepCreateImage{},
+		)
 	}
 
 	// Run the steps

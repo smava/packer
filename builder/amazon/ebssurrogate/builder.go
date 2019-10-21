@@ -289,50 +289,55 @@ func (b *Builder) Run(ctx context.Context, ui packer.Ui, hook packer.Hook) (pack
 			EnableAMISriovNetSupport: b.config.AMISriovNetSupport,
 			EnableAMIENASupport:      b.config.AMIENASupport,
 		},
-		&StepSnapshotVolumes{
-			LaunchDevices:   launchDevices,
-			SnapshotOmitMap: b.config.LaunchMappings.GetOmissions(),
-		},
-		&awscommon.StepDeregisterAMI{
-			AccessConfig:        &b.config.AccessConfig,
-			ForceDeregister:     b.config.AMIForceDeregister,
-			ForceDeleteSnapshot: b.config.AMIForceDeleteSnapshot,
-			AMIName:             b.config.AMIName,
-			Regions:             b.config.AMIRegions,
-		},
-		&StepRegisterAMI{
-			RootDevice:               b.config.RootDevice,
-			AMIDevices:               amiDevices,
-			LaunchDevices:            launchDevices,
-			EnableAMISriovNetSupport: b.config.AMISriovNetSupport,
-			EnableAMIENASupport:      b.config.AMIENASupport,
-			Architecture:             b.config.Architecture,
-			LaunchOmitMap:            b.config.LaunchMappings.GetOmissions(),
-			AMISkipBuildRegion:       b.config.AMISkipBuildRegion,
-		},
-		&awscommon.StepAMIRegionCopy{
-			AccessConfig:      &b.config.AccessConfig,
-			Regions:           b.config.AMIRegions,
-			AMIKmsKeyId:       b.config.AMIKmsKeyId,
-			RegionKeyIds:      b.config.AMIRegionKMSKeyIDs,
-			EncryptBootVolume: b.config.AMIEncryptBootVolume,
-			Name:              b.config.AMIName,
-			OriginalRegion:    *ec2conn.Config.Region,
-		},
-		&awscommon.StepModifyAMIAttributes{
-			Description:    b.config.AMIDescription,
-			Users:          b.config.AMIUsers,
-			Groups:         b.config.AMIGroups,
-			ProductCodes:   b.config.AMIProductCodes,
-			SnapshotUsers:  b.config.SnapshotUsers,
-			SnapshotGroups: b.config.SnapshotGroups,
-			Ctx:            b.config.ctx,
-		},
-		&awscommon.StepCreateTags{
-			Tags:         b.config.AMITags,
-			SnapshotTags: b.config.SnapshotTags,
-			Ctx:          b.config.ctx,
-		},
+	}
+
+	if !b.config.PackerDryRun {
+		steps = append(steps,
+			&StepSnapshotVolumes{
+				LaunchDevices:   launchDevices,
+				SnapshotOmitMap: b.config.LaunchMappings.GetOmissions(),
+			},
+			&awscommon.StepDeregisterAMI{
+				AccessConfig:        &b.config.AccessConfig,
+				ForceDeregister:     b.config.AMIForceDeregister,
+				ForceDeleteSnapshot: b.config.AMIForceDeleteSnapshot,
+				AMIName:             b.config.AMIName,
+				Regions:             b.config.AMIRegions,
+			},
+			&StepRegisterAMI{
+				RootDevice:               b.config.RootDevice,
+				AMIDevices:               amiDevices,
+				LaunchDevices:            launchDevices,
+				EnableAMISriovNetSupport: b.config.AMISriovNetSupport,
+				EnableAMIENASupport:      b.config.AMIENASupport,
+				Architecture:             b.config.Architecture,
+				LaunchOmitMap:            b.config.LaunchMappings.GetOmissions(),
+				AMISkipBuildRegion:       b.config.AMISkipBuildRegion,
+			},
+			&awscommon.StepAMIRegionCopy{
+				AccessConfig:      &b.config.AccessConfig,
+				Regions:           b.config.AMIRegions,
+				AMIKmsKeyId:       b.config.AMIKmsKeyId,
+				RegionKeyIds:      b.config.AMIRegionKMSKeyIDs,
+				EncryptBootVolume: b.config.AMIEncryptBootVolume,
+				Name:              b.config.AMIName,
+				OriginalRegion:    *ec2conn.Config.Region,
+			},
+			&awscommon.StepModifyAMIAttributes{
+				Description:    b.config.AMIDescription,
+				Users:          b.config.AMIUsers,
+				Groups:         b.config.AMIGroups,
+				ProductCodes:   b.config.AMIProductCodes,
+				SnapshotUsers:  b.config.SnapshotUsers,
+				SnapshotGroups: b.config.SnapshotGroups,
+				Ctx:            b.config.ctx,
+			},
+			&awscommon.StepCreateTags{
+				Tags:         b.config.AMITags,
+				SnapshotTags: b.config.SnapshotTags,
+				Ctx:          b.config.ctx,
+			},
+		)
 	}
 
 	// Run!

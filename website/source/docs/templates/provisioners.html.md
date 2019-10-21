@@ -98,7 +98,7 @@ run.
 
 Toy usage example for the error cleanup script:
 
-```json
+``` json
 {
   "builders": [
     {

@@ -13,19 +13,19 @@ Packer is able to create Outscale OMIs. To achieve this, Packer comes with
 multiple builders depending on the strategy you want to use to build the OMI.
 Packer supports the following builders at the moment:
 
-- [osc-bsu](/docs/builders/osc-bsu.html) - Create BSU-backed OMIs by
+-   [osc-bsu](/docs/builders/osc-bsu.html) - Create BSU-backed OMIs by
     launching a source OMI and re-packaging it into a new OMI after
     provisioning. If in doubt, use this builder, which is the easiest to get
     started with.
 
-- [osc-chroot](/docs/builders/osc-chroot.html) - Create EBS-backed OMIs
+-   [osc-chroot](/docs/builders/osc-chroot.html) - Create EBS-backed OMIs
     from an existing OUTSCALE VM by mounting the root device and using a
     [Chroot](https://en.wikipedia.org/wiki/Chroot) environment to provision
     that device. This is an **advanced builder and should not be used by
     newcomers**. However, it is also the fastest way to build an EBS-backed OMI
     since no new OUTSCALE VM needs to be launched.
 
-- [osc-bsusurrogate](/docs/builders/osc-bsusurrogate.html) - Create BSU-backed OMIs from scratch. Works similarly to the `chroot` builder but does
+-   [osc-bsusurrogate](/docs/builders/osc-bsusurrogate.html) - Create BSU-backed OMIs from scratch. Works similarly to the `chroot` builder but does
     not require running in Outscale VM. This is an **advanced builder and should not be
     used by newcomers**.
 
@@ -36,16 +36,16 @@ builder](/docs/builders/osc-bsu.html). It is much easier to use and Outscale gen
 
 Packer is able to create Outscale BSU Volumes which are preinitialized with a filesystem and data.
 
-- [osc-bsuvolume](/docs/builders/osc-bsuvolume.html) - Create EBS volumes by launching a source OMI with block devices mapped. Provision the VM, then destroy it, retaining the EBS volumes.
+-   [osc-bsuvolume](/docs/builders/osc-bsuvolume.html) - Create EBS volumes by launching a source OMI with block devices mapped. Provision the VM, then destroy it, retaining the EBS volumes.
 
 ## Authentication
 
 The OUTSCALE provider offers a flexible means of providing credentials for authentication. The following methods are supported, in this order, and explained below:
 
-- Static credentials
-- Environment variables
-- Shared credentials file
-- Outscale Role
+-   Static credentials
+-   Environment variables
+-   Shared credentials file
+-   Outscale Role
 
 ### Static Credentials
 

@@ -63,22 +63,18 @@ Optional parameters:
 -   `env_var_format` (string) - When we parse the environment\_vars that you
     provide, this gives us a string template to use in order to make sure that
     we are setting the environment vars correctly. By default on Windows hosts
-    this format is `set %s=%s && ` and on Unix, it is `%s='%s' `. You probably
+    this format is `set %s=%s &&` and on Unix, it is `%s='%s'`. You probably
     won't need to change this format, but you can see usage examples for where
     it is necessary below.
 
 -   `execute_command` (array of strings) - The command used to execute the
-    script. By default, on *nix systems this is:
+    script. By default, on \*nix systems this is:
 
-    ```
-    ["/bin/sh", "-c", "{{.Vars}} {{.Script}}"]
-    ```
+        ["/bin/sh", "-c", "{{.Vars}} {{.Script}}"]
 
     While on Windows, `execute_command` defaults to:
 
-    ```
-    ["cmd", "/V", "/C", "{{.Vars}}", "call", "{{.Script}}"]
-    ```
+        ["cmd", "/V", "/C", "{{.Vars}}", "call", "{{.Script}}"]
 
     This is treated as a [template engine](/docs/templates/engine.html).
     There are two available variables: `Script`, which is the path to the
@@ -113,7 +109,7 @@ Optional parameters:
     provisioner.
 
 -   `keep_input_artifact` (boolean) - Unlike most other post-processors, the
-    keep_input_artifact option will have no effect for the shell-local
+    keep\_input\_artifact option will have no effect for the shell-local
     post-processor. Packer will always retain the input artifact for
     shell-local, since the shell-local post-processor merely passes forward the
     artifact it receives. If your shell-local post-processor produces a file or

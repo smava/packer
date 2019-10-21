@@ -159,6 +159,18 @@ func (b *Builder) Run(ctx context.Context, ui packer.Ui, hook packer.Hook) (pack
 		},
 	}
 
+	if !b.config.PackerDryRun {
+		steps = append(steps,
+			&vboxcommon.StepExport{
+				Format:         b.config.Format,
+				OutputDir:      b.config.OutputDir,
+				ExportOpts:     b.config.ExportConfig.ExportOpts,
+				SkipNatMapping: b.config.SSHSkipNatMapping,
+				SkipExport:     b.config.SkipExport,
+			},
+		)
+	}
+
 	// Run the steps.
 	b.runner = common.NewRunnerWithPauseFn(steps, b.config.PackerConfig, ui, state)
 	b.runner.Run(ctx, state)

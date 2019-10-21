@@ -68,7 +68,7 @@ on Vagrant Cloud, as well as authentication and version information.
     can be generated on your [tokens
     page](https://app.vagrantup.com/settings/security). If not specified, the
     environment will be searched. First, `VAGRANT_CLOUD_TOKEN` is checked, and
-    if nothing is found, finally `ATLAS_TOKEN` will be used. This is required 
+    if nothing is found, finally `ATLAS_TOKEN` will be used. This is required
     unless you are using a private hosting solution (i.e. `vagrant_cloud_url`
     has been populated).
 
@@ -76,10 +76,9 @@ on Vagrant Cloud, as well as authentication and version information.
 
 -   `vagrant_cloud_url` (string) - Override the base URL for Vagrant Cloud.
     This is useful if you're using Vagrant Private Cloud in your own network.
-    Defaults to `https://vagrantcloud.com/api/v1`. If this value is set to something 
-    other than the default then `access_token` can be left blank and no 
+    Defaults to `https://vagrantcloud.com/api/v1`. If this value is set to something
+    other than the default then `access_token` can be left blank and no
     `Authorization` header will be added to requests sent by this post-processor.
-
 
 ### Optional:
 
@@ -90,7 +89,7 @@ on Vagrant Cloud, as well as authentication and version information.
 -   `insecure_skip_tls_verify` (boolean) - If set to true *and* `vagrant_cloud_url`
     is set to something different than its default, it will set TLS InsecureSkipVerify
     to true. In other words, this will disable security checks of SSL. You may need
-    to set this option to true if your host at vagrant_cloud_url is using a
+    to set this option to true if your host at vagrant\_cloud\_url is using a
     self-signed certificate.
 
 -   `keep_input_artifact` (boolean) - When true, preserve the local box
@@ -162,7 +161,7 @@ Note that the Vagrant box specified in the Artifice post-processor `files` array
 must end in the `.box` extension. It must also be the first file in the array.
 Additional files bundled by the Artifice post-processor will be ignored.
 
-```json
+``` json
 {
   "variables": {
     "cloud_token": "{{ env `VAGRANT_CLOUD_TOKEN` }}",

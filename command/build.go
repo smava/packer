@@ -53,10 +53,10 @@ func (c *BuildCommand) Run(args []string) int {
 }
 
 type Config struct {
-	Color, Debug, Force, Timestamp bool
-	ParallelBuilds                 int64
-	OnError                        string
-	Path                           string
+	Color, Debug, Force, Timestamp, DryRun bool
+	ParallelBuilds                         int64
+	OnError                                string
+	Path                                   string
 }
 
 func (c *BuildCommand) ParseArgs(args []string) (Config, int) {
@@ -66,6 +66,7 @@ func (c *BuildCommand) ParseArgs(args []string) (Config, int) {
 	flags.Usage = func() { c.Ui.Say(c.Help()) }
 	flags.BoolVar(&cfg.Color, "color", true, "")
 	flags.BoolVar(&cfg.Debug, "debug", false, "")
+	flags.BoolVar(&cfg.DryRun, "dry-run", false, "")
 	flags.BoolVar(&cfg.Force, "force", false, "")
 	flags.BoolVar(&cfg.Timestamp, "timestamp-ui", false, "")
 	flagOnError := enumflag.New(&cfg.OnError, "cleanup", "abort", "ask")
@@ -79,8 +80,14 @@ func (c *BuildCommand) ParseArgs(args []string) (Config, int) {
 	if parallel == false && cfg.ParallelBuilds == 0 {
 		cfg.ParallelBuilds = 1
 	}
+
 	if cfg.ParallelBuilds < 1 {
 		cfg.ParallelBuilds = math.MaxInt64
+	}
+
+	if cfg.DryRun {
+		c.Ui.Say("Dry-run mode has been set the ParallelBuilds to 1")
+		cfg.ParallelBuilds = 1
 	}
 
 	args = flags.Args()
@@ -88,6 +95,12 @@ func (c *BuildCommand) ParseArgs(args []string) (Config, int) {
 		flags.Usage()
 		return cfg, 1
 	}
+
+	if cfg.DryRun {
+		c.Ui.Say("Dry-run mode has been enabled.")
+		c.Ui.Say("Instance will be provisioned, image will not be created, debug mode will be enabled.")
+	}
+
 	cfg.Path = args[0]
 	return cfg, 0
 }
@@ -169,6 +182,7 @@ func (c *BuildCommand) RunContext(buildCtx context.Context, args []string) int {
 	}
 
 	log.Printf("Build debug mode: %v", cfg.Debug)
+	log.Printf("Build dry-run mode: %v", cfg.DryRun)
 	log.Printf("Force build: %v", cfg.Force)
 	log.Printf("On error: %v", cfg.OnError)
 
@@ -176,6 +190,7 @@ func (c *BuildCommand) RunContext(buildCtx context.Context, args []string) int {
 	for _, b := range builds {
 		log.Printf("Preparing build: %s", b.Name())
 		b.SetDebug(cfg.Debug)
+		b.SetDryRun(cfg.DryRun)
 		b.SetForce(cfg.Force)
 		b.SetOnError(cfg.OnError)
 
@@ -355,6 +370,7 @@ Options:
 
   -color=false                  Disable color output. (Default: color)
   -debug                        Debug mode enabled for builds.
+  -dry-run                      DryRun mode enabled for builds.
   -except=foo,bar,baz           Run all builds and post-procesors other than these.
   -only=foo,bar,baz             Build only the specified builds.
   -force                        Force a build to continue if artifacts exist, deletes existing artifacts.
@@ -382,6 +398,7 @@ func (*BuildCommand) AutocompleteFlags() complete.Flags {
 	return complete.Flags{
 		"-color":            complete.PredictNothing,
 		"-debug":            complete.PredictNothing,
+		"-dry-run":          complete.PredictNothing,
 		"-except":           complete.PredictNothing,
 		"-only":             complete.PredictNothing,
 		"-force":            complete.PredictNothing,

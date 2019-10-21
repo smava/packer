@@ -52,7 +52,7 @@ artifacts that are created will be outputted at the end of the build.
     attribute is specified within the configuration. `-only` does not apply to
     post-processors.
 
--   `-parallel=false` - /!\ Deprecated, use `-parallel-builds=1` instead,
+-   `-parallel=false` - /!\\ Deprecated, use `-parallel-builds=1` instead,
     setting `-parallel-builds=N` to more that 0 will ignore the `-parallel`
     setting. Set `-parallel=false` to disable parallelization of multiple
     builders (on by default).

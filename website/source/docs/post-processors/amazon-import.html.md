@@ -14,7 +14,7 @@ Type: `amazon-import`
 The Packer Amazon Import post-processor takes an OVA artifact from various
 builders and imports it to an AMI available to Amazon Web Services EC2.
 
-\~&gt; This post-processor is for advanced users. It depends on specific IAM
+~&gt; This post-processor is for advanced users. It depends on specific IAM
 roles inside AWS and is best used with images that operate with the EC2
 configuration model (eg, cloud-init for Linux systems). Please ensure you read
 the [prerequisites for
@@ -132,7 +132,7 @@ Optional:
     specified in `s3_encryption`. This setting is ignored if AES is used
     as Amazon does not currently support custom AES keys when using the VM
     import service. If set, the role specified in `role_name` must be granted
-    access to use this key.  If not set, and `s3_encryption` is set to `aws:kms`,
+    access to use this key. If not set, and `s3_encryption` is set to `aws:kms`,
     the account default KMS key will be used.
 
 -   `s3_key_name` (string) - The name of the key in `s3_bucket_name` where the
@@ -213,6 +213,7 @@ using ovftool.
 
 You'll need at least the following permissions in the policy for your IAM user
 in order to successfully upload an image via the amazon-import post-processor.
+
 ``` json
         "ec2:CancelImportTask",
         "ec2:CopyImage",
@@ -223,7 +224,6 @@ in order to successfully upload an image via the amazon-import post-processor.
         "ec2:ModifyImageAttribute"
         "ec2:DeregisterImage"
 ```
-
 
 ## Troubleshooting Timeouts
 

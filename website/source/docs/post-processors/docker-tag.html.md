@@ -39,7 +39,7 @@ settings are optional.
     [reference](https://docs.docker.com/engine/deprecated/#/f-flag-on-docker-tag)
 
 -   `keep_input_artifact` (boolean) - Unlike most other post-processors, the
-    keep_input_artifact option will have no effect for the docker-tag
+    keep\_input\_artifact option will have no effect for the docker-tag
     post-processor. We will always retain the input artifact for docker-tag,
     since deleting the image we just tagged is not a behavior anyone should ever
     expect. `keep_input_artifact will` therefore always be evaluated as true,

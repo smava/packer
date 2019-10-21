@@ -95,9 +95,14 @@ func (b *Builder) Run(ctx context.Context, ui packer.Ui, hook packer.Hook) (pack
 		},
 		new(stepShutdown),
 		new(stepPowerOff),
-		&stepSnapshot{
-			snapshotTimeout: b.config.SnapshotTimeout,
-		},
+	}
+
+	if !b.config.PackerDryRun {
+		steps = append(steps,
+			&stepSnapshot{
+				snapshotTimeout: b.config.SnapshotTimeout,
+			},
+		)
 	}
 
 	// Run the steps

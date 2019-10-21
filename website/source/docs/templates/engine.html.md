@@ -27,8 +27,7 @@ The syntax of templates uses the following conventions:
 Functions perform operations on and within strings, for example the
 `{{timestamp}}` function can be used in any string to generate the current
 timestamp. This is useful for configurations that require unique keys, such as
-AMI names. By setting the AMI name to something like `My Packer AMI
-{{timestamp}}`, the AMI name will be unique down to the second. If you need
+AMI names. By setting the AMI name to something like `My Packer AMI {{timestamp}}`, the AMI name will be unique down to the second. If you need
 greater than one second granularity, you should use `{{uuid}}`, for example
 when you have multiple builders in the same template.
 
@@ -39,10 +38,10 @@ Here is a full list of the available functions for reference.
 -   `clean_resource_name` - Image names can only contain certain characters and
     have a maximum length, eg 63 on GCE & 80 on Azure. `clean_resource_name`
     will convert upper cases to lower cases and replace illegal characters with
-    a "-" character.  Example:
+    a "-" character. Example:
 
-   `"mybuild-{{isotime | clean_image_name}}"` will become
-    `mybuild-2017-10-18t02-06-30z`.
+`"mybuild-{{isotime | clean_image_name}}"` will become
+`mybuild-2017-10-18t02-06-30z`.
 
     Note: Valid Azure image names must match the regex
     `^[^_\\W][\\w-._)]{0,79}$`
@@ -57,6 +56,7 @@ Here is a full list of the available functions for reference.
     clean_resource_name}}"` will cause your build to fail because the image
     name will start with a number, which is why in the above example we prepend
     the isotime with "mybuild".
+
 -   `env` - Returns environment variables. See example in [using home
     variable](/docs/templates/user-variables.html#using-home-variable)
 -   `isotime [FORMAT]` - UTC time, which can be
@@ -72,7 +72,7 @@ Here is a full list of the available functions for reference.
 -   `pwd` - The working directory while executing Packer.
 -   `replace` - ( old, new string, n int, s ) Replace returns a copy of the
     string s with the first n non-overlapping instances of old replaced by new.
--   `replace_all` - ( old, new string, s )  ReplaceAll returns a copy of the
+-   `replace_all` - ( old, new string, s ) ReplaceAll returns a copy of the
     string s with all non-overlapping instances of old replaced by new.
 -   `split` - Split an input string using separator and return the requested
     substring.
@@ -93,7 +93,7 @@ Here is a full list of the available functions for reference.
 
 -   `clean_image_name` - DEPRECATED use `clean_resource_name` instead - GCE
     image names can only contain certain characters and the maximum length is
-    63. This function will convert upper cases to lower cases and replace
+    1.  This function will convert upper cases to lower cases and replace
         illegal characters with a "-" character. Example:
 
     `"mybuild-{{isotime | clean_image_name}}"` will become
@@ -126,8 +126,7 @@ Here is a full list of the available functions for reference.
     regex; it will not truncate your name if it exceeds 80 characters, and it
     will not validate that the beginning and end of the engine's output are
     valid. It will truncate invalid characters from the end of the name when
-    converting illegal characters. For example, `"managed_image_name:
-    "My-Name::"` will be converted to `"managed_image_name: "My-Name"`
+    converting illegal characters. For example, `"managed_image_name: "My-Name::"` will be converted to `"managed_image_name: "My-Name"`
 
 ## Template variables
 
@@ -257,7 +256,6 @@ Formatting for the function `isotime` uses the magic reference date **Mon Jan 2
     </td>
   </tr>
 </table>
-
 *The values in parentheses are the abbreviated, or 24-hour clock values*
 
 For those unfamiliar with GO date/time formatting, here is a link to the

@@ -9,8 +9,8 @@ sidebar_current: 'docs-builders-azure'
 
 # Azure Virtual Machine Image Builders
 
-Packer can create Azure virtual machine images through variety of ways 
-depending on the strategy that you want to use for building the images. 
+Packer can create Azure virtual machine images through variety of ways
+depending on the strategy that you want to use for building the images.
 Packer supports the following builders for Azure images at the moment:
 
 -   [azure-arm](/docs/builders/azure-arm.html) - Uses Azure Resource
@@ -75,17 +75,17 @@ To get started, try assigning the `Contributor` role at the subscription level t
 your VM. Then, when you discover your exact scenario, scope the permissions
 appropriately or isolate Packer builds in a separate subscription.
 
-##  Azure Active Directory Service Principal
+## Azure Active Directory Service Principal
 
 Azure Active Directory models service accounts as 'Service Principal' (SP)
 objects. An SP represents an application accessing your Azure resources. It
 is identified by a client ID (aka application ID) and can use a password or a
-certificate to authenticate. To use a Service Principal, specify the 
+certificate to authenticate. To use a Service Principal, specify the
 `subscription_id` and `client_id`, as well as either `client_secret`,
 `client_cert_path` or `client_jwt`. Each of these last three represent a different
 way to authenticate the SP to AAD:
 
--   `client_secret` - allows the user to provide a password/secret registered 
+-   `client_secret` - allows the user to provide a password/secret registered
     for the AAD SP.
 -   `client_cert_path` - allows usage of a certificate to be used to
     authenticate as the specified AAD SP.
@@ -98,4 +98,3 @@ way to authenticate the SP to AAD:
 
 To create a service principal, you can follow [the Azure documentation on this
 subject](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?view=azure-cli-latest).
-

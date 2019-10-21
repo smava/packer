@@ -171,16 +171,21 @@ func (b *Builder) Run(ctx context.Context, ui packer.Ui, hook packer.Hook) (pack
 			RemoveEthernetInterfaces: b.config.VMXConfig.VMXRemoveEthernet,
 			VNCEnabled:               !b.config.DisableVNC,
 		},
-		&vmwcommon.StepUploadVMX{
-			RemoteType: b.config.RemoteType,
-		},
-		&vmwcommon.StepExport{
-			Format:         b.config.Format,
-			SkipExport:     b.config.SkipExport,
-			VMName:         b.config.VMName,
-			OVFToolOptions: b.config.OVFToolOptions,
-			OutputDir:      exportOutputPath,
-		},
+	}
+
+	if !b.config.PackerDryRun {
+		steps = append(steps,
+			&vmwcommon.StepUploadVMX{
+				RemoteType: b.config.RemoteType,
+			},
+			&vmwcommon.StepExport{
+				Format:         b.config.Format,
+				SkipExport:     b.config.SkipExport,
+				VMName:         b.config.VMName,
+				OVFToolOptions: b.config.OVFToolOptions,
+				OutputDir:      exportOutputPath,
+			},
+		)
 	}
 
 	// Run!

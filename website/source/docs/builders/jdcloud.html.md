@@ -3,7 +3,7 @@ description: |
     The `jdcloud` Packer builder helps you to build instance images
     based on an existing image
 layout: docs
-page_title: 'JDCloud Image Builder'
+page_title: JDCloud Image Builder
 sidebar_current: 'docs-builders-jdcloud'
 ---
 
@@ -17,25 +17,24 @@ based on an existing image
 ## Configuration Reference
 
 In order to build a JDCloud instance image, full-fill your configuration file. Necessary attributes
-are given below: 
+are given below:
 
 ### Required-Parameters:
 
-- `type` (string) - This parameter tells which cloud-service-provider you are using, in our case, use 'jdcloud'
-- `image_id` (string) - New image is generated based on an old one, specify the base-image-id here. 
-- `access_key` (string) - Your JD Cloud access key. You may set this as an env-variable:`export JDCLOUD_ACCESS_KEY=xxx`
-- `secret_key` (string) - Your JD Cloud secret key. You may also set this via env-variable:`export JDCLOUD_SECRET_KEY=xxx`
-- `region_id` (string) - Region of your instance, candidates are {"cn-north-1","cn-south-1","cn-east-1","cn-east-2"}
-- `az` (string) - Exact availability zone of instance, 'cn-north-1c' for example
-- `instance_name` (string) - Name your instance
-- `instance_type` (string) - Class of your expected instance
-- `image_name` (string) - Name the image you would like to create
-- `communicator` (string) - Currently only `ssh` is supported. `winrm` will be added if required
+-   `type` (string) - This parameter tells which cloud-service-provider you are using, in our case, use 'jdcloud'
+-   `image_id` (string) - New image is generated based on an old one, specify the base-image-id here.
+-   `access_key` (string) - Your JD Cloud access key. You may set this as an env-variable:`export JDCLOUD_ACCESS_KEY=xxx`
+-   `secret_key` (string) - Your JD Cloud secret key. You may also set this via env-variable:`export JDCLOUD_SECRET_KEY=xxx`
+-   `region_id` (string) - Region of your instance, candidates are {"cn-north-1","cn-south-1","cn-east-1","cn-east-2"}
+-   `az` (string) - Exact availability zone of instance, 'cn-north-1c' for example
+-   `instance_name` (string) - Name your instance
+-   `instance_type` (string) - Class of your expected instance
+-   `image_name` (string) - Name the image you would like to create
+-   `communicator` (string) - Currently only `ssh` is supported. `winrm` will be added if required
 
 ### Optional-Parameters
 
-- `subnet_id` (string) - An instance is supposed to exists in an subnet, if not specified , we will create new one for you
-
+-   `subnet_id` (string) - An instance is supposed to exists in an subnet, if not specified , we will create new one for you
 
 ## Examples
 
@@ -73,8 +72,6 @@ Here is a basic example for JDCloud.
     }
   ]
 }
-
-
 ```
 
 [Find more examples](https://github.com/hashicorp/packer/tree/master/examples/jdcloud)

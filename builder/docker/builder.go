@@ -64,8 +64,12 @@ func (b *Builder) Run(ctx context.Context, ui packer.Ui, hook packer.Hook) (pack
 	if b.config.Discard {
 		log.Print("[DEBUG] Container will be discarded")
 	} else if b.config.Commit {
-		log.Print("[DEBUG] Container will be committed")
-		steps = append(steps, new(StepCommit))
+		if !b.config.PackerDryRun {
+			log.Print("[DEBUG] Container will be committed")
+			steps = append(steps, new(StepCommit))
+		} else {
+			log.Print("[DEBUG] Container will be not committed because of DryRun")
+		}
 	} else if b.config.ExportPath != "" {
 		log.Printf("[DEBUG] Container will be exported to %s", b.config.ExportPath)
 		steps = append(steps, new(StepExport))
